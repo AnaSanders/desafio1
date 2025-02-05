@@ -43,38 +43,20 @@ function removerAmigo(index) {
 }
 
 function sortearAmigo() {
-    if (amigos.length < 2) {
-        alert("Adicione pelo menos dois amigos para realizar o sorteio.");
+    if (amigos.length === 0) {
+        alert("Adicione pelo menos um amigo para realizar o sorteio.");
         return;
     }
     
-    let sorteio = {};
-    let amigosDisponiveis = [...amigos];
-    let amigosParaSortear = [...amigos];
-    
-    amigosParaSortear.forEach(amigo => {
-        let possiveis = amigosDisponiveis.filter(a => a !== amigo);
-        
-        if (possiveis.length === 0) {
-            alert("Não foi possível realizar o sorteio. Tente novamente.");
-            return;
-        }
-        
-        let sorteado = possiveis[Math.floor(Math.random() * possiveis.length)];
-        sorteio[amigo] = sorteado;
-        amigosDisponiveis = amigosDisponiveis.filter(a => a !== sorteado);
-    });
-    
-    exibirResultado(sorteio);
+    let sorteado = amigos[Math.floor(Math.random() * amigos.length)];
+    exibirResultado(sorteado);
 }
 
-function exibirResultado(sorteio) {
+function exibirResultado(sorteado) {
     let resultadoLista = document.getElementById("resultado");
     resultadoLista.innerHTML = "";
     
-    for (let [amigo, sorteado] of Object.entries(sorteio)) {
-        let li = document.createElement("li");
-        li.textContent = `${amigo} → ${sorteado}`;
-        resultadoLista.appendChild(li);
-    }
+    let li = document.createElement("li");
+    li.textContent = `O amigo sorteado é: ${sorteado}`;
+    resultadoLista.appendChild(li);
 }
